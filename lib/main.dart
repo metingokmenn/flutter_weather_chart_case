@@ -1,7 +1,8 @@
 // lib/main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'controller/weather_state.dart';
+import 'blocs/weather_cubit.dart';
+
 import 'pages/weather_dashboard_page.dart';
 import 'service/service_locator.dart';
 import 'service/weather_service.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
       title: 'Weather Dashboard',
       theme: ThemeData(
         appBarTheme: AppBarTheme(backgroundColor: Colors.white),
+        scaffoldBackgroundColor: Colors.white,
         primarySwatch: Colors.blue,
         useMaterial3: true,
       ),

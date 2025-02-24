@@ -31,7 +31,7 @@ class WindRoseChartPainter extends CustomPainter {
     // Draw concentric circles
     final circles = Paint()
       ..color = Colors.grey.withValues(alpha: 0.2)
-      ..style = PaintingStyle.stroke
+      ..style = PaintingStyle.fill
       ..strokeWidth = 2.5;
 
     for (var i = 1; i <= 4; i++) {

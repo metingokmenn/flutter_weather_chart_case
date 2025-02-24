@@ -16,18 +16,16 @@ class DataGenerator {
       double totalRainfall = 0;
       int rainfallCount = 0;
 
-      // Günlük minimum ve maksimum rüzgar değerlerini belirle
-      double minWindSpeed = 5 + math.Random().nextDouble() * 5; // 5-10 m/s
-      double maxWindSpeed = 15 + math.Random().nextDouble() * 10; // 15-25 m/s
-      double minWindDirection =
-          math.Random().nextDouble() * 180; // 0-180 derece
-      double maxWindDirection = minWindDirection + 180; // 180-360 derece
+      double minWindSpeed = 5 + math.Random().nextDouble() * 5;
+      double maxWindSpeed = 15 + math.Random().nextDouble() * 10;
+      double minWindDirection = math.Random().nextDouble() * 180;
+      double maxWindDirection = minWindDirection + 180;
 
       for (int hour = 0; hour < 24; hour++) {
         final dailyReading = dailyPattern[hour];
 
         totalTemperature +=
-            _addVariation((dailyReading['temperature'] as num).toDouble(), 0.1);
+            _addVariation((dailyReading['temperature'] as num).toDouble(), 0.6);
         totalWindSpeed += _generateWindSpeed(minWindSpeed, maxWindSpeed);
         totalWindDirection +=
             _generateWindDirection(minWindDirection, maxWindDirection);
@@ -41,23 +39,21 @@ class DataGenerator {
 
       double avgRainfall = 0;
 
+      //To add possibility to rainfall could be zero
       if (rainfallCount > 0) {
-        // %30 ihtimalle yağış sıfır
         if (math.Random().nextDouble() < 0.3) {
           avgRainfall = 0;
         } else {
-          // Min-Max aralığı içinde rastgele yağış miktarı
-          double minRainfall = 0.0; // En düşük yağış (sıfır)
-          double maxRainfall = 30.0; // En yüksek yağış (30mm)
+          double minRainfall = 0.0;
+          double maxRainfall = 30.0;
 
           avgRainfall = minRainfall +
               math.Random().nextDouble() * (maxRainfall - minRainfall);
         }
       } else {
-        avgRainfall = 0; // Yağış verisi yoksa 0
+        avgRainfall = 0;
       }
 
-      // Günlük ortalamalar
       double avgTemperature = totalTemperature / 24;
       double avgWindSpeed = totalWindSpeed / 24;
       double avgWindDirection = totalWindDirection / 24;
@@ -84,7 +80,6 @@ class DataGenerator {
     return min + math.Random().nextDouble() * (max - min);
   }
 
-  // Helper method to add variation to values
   static double _addVariation(double value, double variationPercent) {
     final variation =
         (math.Random().nextDouble() * 2 - 1) * variationPercent * value;

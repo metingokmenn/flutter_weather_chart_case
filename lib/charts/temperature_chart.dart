@@ -68,6 +68,10 @@ class TemperatureChartPainter extends CustomPainter {
 
     List<double> xValues = [];
 
+    double maxTemp = data.map((e) => e.temperature).reduce(math.max);
+
+    double minTemp = data.map((e) => e.temperature).reduce(math.min);
+
     for (var i = 0; i < data.length; i++) {
       final x = chartRect.left + i * xStep;
       final normalizedY = (data[i].temperature - yMin) / (yMax - yMin);
@@ -84,6 +88,7 @@ class TemperatureChartPainter extends CustomPainter {
 
     final minYValue = yValues.reduce(math.max);
 
+    //Draw min max labels
     final maxTextSpan = TextSpan(
       text: 'Max', // Show day name (Mon, Tue, etc.)
       style: TextStyle(
@@ -91,6 +96,13 @@ class TemperatureChartPainter extends CustomPainter {
         fontSize: 12,
       ),
     );
+
+    final maxTempTextSpan = TextSpan(
+        text: '$maxTemp °C',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 9,
+        ));
 
     final minTextSpan = TextSpan(
       text: 'Min', // Show day name (Mon, Tue, etc.)
@@ -100,15 +112,28 @@ class TemperatureChartPainter extends CustomPainter {
       ),
     );
 
+    final minTempTextSpan = TextSpan(
+        text: '$minTemp °C',
+        style: TextStyle(
+          color: Colors.black,
+          fontSize: 9,
+        ));
+
     final maxTextPainter = TextPainter(
       text: maxTextSpan,
       textDirection: ui.TextDirection.ltr,
     );
 
+    final maxTempTextPainter =
+        TextPainter(text: maxTempTextSpan, textDirection: ui.TextDirection.ltr);
+
     final minTextPainter = TextPainter(
       text: minTextSpan,
       textDirection: ui.TextDirection.ltr,
     );
+
+    final minTempTextPainter =
+        TextPainter(text: minTempTextSpan, textDirection: ui.TextDirection.ltr);
 
     maxTextPainter.layout();
     maxTextPainter.paint(
@@ -119,6 +144,12 @@ class TemperatureChartPainter extends CustomPainter {
       ),
     );
 
+    maxTempTextPainter.layout();
+    maxTempTextPainter.paint(canvas, Offset(chartRect.right, maxYValue + 10));
+
+    minTempTextPainter.layout();
+    minTempTextPainter.paint(canvas, Offset(chartRect.right, minYValue + 10));
+
     minTextPainter.layout();
     minTextPainter.paint(
       canvas,
@@ -128,6 +159,7 @@ class TemperatureChartPainter extends CustomPainter {
       ),
     );
 
+    //Draw min and max dashed lines
     const dashWidth = 5.0;
     const dashSpace = 5.0;
     double startX = chartRect.left;

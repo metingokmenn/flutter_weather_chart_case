@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/weather_cubit.dart';
 import '../controller/weather_state.dart';
 import 'weather_dashboard_content.dart';
 
