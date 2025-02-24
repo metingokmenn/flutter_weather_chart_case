@@ -36,9 +36,11 @@ class WeatherDashboardContent extends StatelessWidget {
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
-            SizedBox(
-              height: 400,
-              child: WindRoseChart(data: weeklyData),
+            Center(
+              child: SizedBox(
+                height: 400,
+                child: WindRoseChart(data: weeklyData),
+              ),
             ),
             const SizedBox(height: 32),
             const Padding(
